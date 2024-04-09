@@ -1,41 +1,44 @@
-import React, {useState,useEffect} from "react";
+import "./App.css";
+import React, { useState, useEffect } from "react";
 
-function App(){
-  const url="https://jsonplaceholder.typicode.com/users";
-  const [data,setData]=useState([]);
-  
+function App() {
+  const url = "https://jsonplaceholder.typicode.com/users";
+  const [data, setData] = useState([]);
+
+  const fetchInfo = () => {
+    return fetch(url)
+      .then((res) => res.json())
+      .then((d) => setData(d))
+  }
 
 
-const fetchInfo=()=>{
-  return fetch(url)
-    .then((response)=>response.json())
-    .then((data)=>setData(data))
+  useEffect(() => {
+    fetchInfo();
+  }, []);
 
-  
-}
-useEffect(()=>{
-  fetchInfo();
-},[]);
-
-return(
-
-  <div>
-    <h1>This is show data Fromate</h1>
-    <div>
-      {data.map((dataObj,index)=>{
-            return(
-            
-            <p style={{ fontSize: 20, color: 'white' }}>{dataObj.name}</p>
+  return (
+    <div className="App">
+      <h1 style={{ color: "green" }}>using JavaScript inbuilt FETCH API</h1>
+      <center>
+        {data.map((dataObj, index) => {
+          return (
+            <div
+              style={{
+                width: "15em",
+                backgroundColor: "#35D841",
+                padding: 2,
+                borderRadius: 10,
+                marginBlock: 10,
+              }}
+            >
+              <p style={{ fontSize: 20, color: 'white' }}>{dataObj.name}</p>
+            </div>
           );
-      })}
-  
-      
+        })}
+      </center>
     </div>
-  </div>
-
-);
-
-
-
+  );
 }
-export default App;  
+
+export default App;
+
